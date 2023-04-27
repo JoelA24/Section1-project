@@ -228,8 +228,15 @@ class User {
 
   // Add story to users list of favorites and update API
 
-  async _addOrRemoveFavorite(story) {
+  async addFavorite(story) {
     this.favorites.push(story);
+    await this._addOrRemoveFavorite("add", story)
+  }
+
+  // Remove story from list of User favs, update API
+
+  async removeFavorite(story) {
+    this.favorites = this.favorites.filter(s => s.storyId !== story.storyId);
     await this._addOrRemoveFavorite("remove", story)
   }
 

@@ -19,7 +19,7 @@ async function getAndShowStoriesOnStart() {
  * Returns the markup for the story.
  */
 
-function generateStoryMarkup(story) {
+function generateStoryMarkup(story, showDeleteBtn = false) {
   // console.debug("generateStoryMarkup", story);
 
   const hostName = story.getHostName();
@@ -121,7 +121,7 @@ async function submitNewStory(e) {
 
 // List functionality for own stories
 
-function putStoriesOnPage() {
+function putUserStoriesOnPage() {
   console.debug("putStoriesOnPage");
 
   $ownStories.empty();
@@ -162,10 +162,10 @@ function putFavoritesListOnPage() {
 }
 
 // Favorite/Unfavoriting a story
-async function toggleStoryFavorite(evt) {
+async function toggleStoryFavorite(e) {
   console.debug("toggleStoryFavorite");
 
-  const $tgt = $(evt.target);
+  const $tgt = $(e.target);
   const $closestLi = $tgt.closest("li");
   const storyId = $closestLi.attr("id");
   const story = storyList.stories.find(s => s.storyId === storyId);

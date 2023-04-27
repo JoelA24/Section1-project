@@ -122,8 +122,9 @@ async function updateUIOnUserLogin() {
 }
 
 // show "User Profile" section built from current users info
+
 function generateUserProfile() {
-  console.debug("genrateUserProfile");
+  console.debug("generateUserProfile");
 
   $("#profile-name").text(currentUser.name);
   $("#profile-username").text(currentUser.username);

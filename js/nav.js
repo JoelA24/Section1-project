@@ -48,8 +48,8 @@ $body.on("click", "nav-my-stories", navMyStories);
 
 /** Show login/signup on click on "login" */
 
-function navLoginClick(evt) {
-  console.debug("navLoginClick", evt);
+function navLoginClick(e) {
+  console.debug("navLoginClick", e);
   hidePageComponents();
   $loginForm.show();
   $signupForm.show();
