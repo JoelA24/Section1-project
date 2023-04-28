@@ -31,14 +31,14 @@ function generateStoryMarkup(story, showDeleteBtn = false) {
   return $(`
       <li id="${story.storyId}">
         <div>
-        ${showDeleteBtn ? getDeleteBtn() : ""}
+        ${showDeleteBtn ? getDeleteBtnHTML() : ""}
         ${showStar ? getStarHTML(story, currentUser) : ""}
         <a href="${story.url}" target="a_blank" class="story-link">
           ${story.title}
         </a>
         <small class="story-hostname">(${hostName})</small>
-        <div small class="story-author">by ${story.author}</div>
-        <di vsmall class="story-user">posted by ${story.username}</di>
+        <div class="story-author">by ${story.author}</div>
+        <div class="story-user">posted by ${story.username}</div>
         </div>
       </li>
     `);
@@ -57,11 +57,11 @@ function getDeleteBtn() {
 
 function getStarHTML(story, user) {
   const isFavorite = user.isFavorite(story);
-  const starType = isFavorite ? "fas" : "far"
+  const starType = isFavorite ? "fas" : "far";
   return `
-  <span class= "star">
-    <i class"${starType} fa-star"</i>
-    </span>`;
+      <span class="star">
+        <i class="${starType} fa-star"></i>
+      </span>`;
 }
 
 /** Gets list of stories from server, generates their HTML, and puts on page. */
@@ -94,7 +94,7 @@ async function deleteStory(e) {
   await putUserStoriesOnPage();
 }
 
-$ownStories.on("click", ".trash-can", deleteStory);
+$myStories.on("click", ".trash-can", deleteStory);
 
 // new story form submission
 
@@ -119,26 +119,28 @@ async function submitNewStory(e) {
   $submitForm.trigger("reset");
 }
 
+$submitForm.on("submit", submitNewStory);
+
 // List functionality for own stories
 
 function putUserStoriesOnPage() {
-  console.debug("putStoriesOnPage");
+  console.debug("putUserStoriesOnPage");
 
-  $ownStories.empty();
+  $myStories.empty();
 
-  if(currentUser.ownStories.length === 0) {
-    $ownStories.append("<h4>No Stories Here... yet.</h4>");
-  }
-  // loop through stories and generate HTML for each
-  else {
-    for(let story of currentUser.ownStories) {
+  if (currentUser.my$myStories.length === 0) {
+    $myStories.append("<h5>No stories added by user yet!</h5>");
+  } else {
+    // loop through all of users stories and generate HTML for them
+    for (let story of currentUser.my$myStories) {
       let $story = generateStoryMarkup(story, true);
-      $ownStories.append($story);
+      $myStories.append($story);
     }
   }
 
-  $ownStories.show()
+  $myStories.show();
 }
+
 
 // Favorites List FUnctionality
 
@@ -162,24 +164,24 @@ function putFavoritesListOnPage() {
 }
 
 // Favorite/Unfavoriting a story
-async function toggleStoryFavorite(e) {
+async function toggleStoryFavorite(evt) {
   console.debug("toggleStoryFavorite");
 
-  const $tgt = $(e.target);
+  const $tgt = $(evt.target);
   const $closestLi = $tgt.closest("li");
   const storyId = $closestLi.attr("id");
   const story = storyList.stories.find(s => s.storyId === storyId);
 
   // see if the item is already favorited (checking by presence of star)
   if ($tgt.hasClass("fas")) {
-    // Remove from fav list if its already favorited
+    // currently a favorite: remove from user's fav list and change star
     await currentUser.removeFavorite(story);
     $tgt.closest("i").toggleClass("fas far");
   } else {
-    // Add to fav list if not already a favorite
+    // currently not a favorite: do the opposite
     await currentUser.addFavorite(story);
     $tgt.closest("i").toggleClass("fas far");
   }
 }
 
-$storiesLists.on("click", "star", toggleStoryFavorite)
+$storiesLists.on("click", ".star", toggleStoryFavorite);

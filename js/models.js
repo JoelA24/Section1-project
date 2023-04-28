@@ -82,7 +82,7 @@ class StoryList {
 
     const story = new Story(response.data.story);
     this.stories.unshift(story);
-    user.ownStories.unshift(story);
+    user.myStories.unshift(story);
 
     return story;
   }
@@ -105,7 +105,7 @@ class StoryList {
     this.stories = this.stories.filter(story => story.storyId !==   storyId);
 
     // Repeat for user lists of stories and favorites
-    user.ownStories = user.ownStories.filter(s => s.storyId !== storyId);
+    user.myStories = user.myStories.filter(s => s.storyId !== storyId);
     user.favorites = user.favorites.filter(s => s.storyId !== storyId);
   }
 }
@@ -117,7 +117,7 @@ class StoryList {
 
 class User {
   /** Make user instance from obj of user data and a token:
-   *   - {username, name, createdAt, favorites[], ownStories[]}
+   *   - {username, name, createdAt, favorites[], myStories[]}
    *   - token
    */
 
@@ -126,16 +126,16 @@ class User {
                 name,
                 createdAt,
                 favorites = [],
-                ownStories = []
+                myStories = []
               },
               token) {
     this.username = username;
     this.name = name;
     this.createdAt = createdAt;
 
-    // instantiate Story instances for the user's favorites and ownStories
+    // instantiate Story instances for the user's favorites and myStories
     this.favorites = favorites.map(s => new Story(s));
-    this.ownStories = ownStories.map(s => new Story(s));
+    this.myStories = myStories.map(s => new Story(s));
 
     // store the login token on the user so it's easy to find for API calls.
     this.loginToken = token;
@@ -163,7 +163,7 @@ class User {
         name: user.name,
         createdAt: user.createdAt,
         favorites: user.favorites,
-        ownStories: user.stories
+        myStories: user.stories
       },
       response.data.token
     );
@@ -190,7 +190,7 @@ class User {
         name: user.name,
         createdAt: user.createdAt,
         favorites: user.favorites,
-        ownStories: user.stories
+        myStories: user.stories
       },
       response.data.token
     );
@@ -216,7 +216,7 @@ class User {
           name: user.name,
           createdAt: user.createdAt,
           favorites: user.favorites,
-          ownStories: user.stories
+          myStories: user.stories
         },
         token
       );
