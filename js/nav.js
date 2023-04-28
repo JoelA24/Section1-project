@@ -6,8 +6,8 @@
 
 /** Show main list of all stories when click site name */
 
-function navAllStories(evt) {
-  console.debug("navAllStories", evt);
+function navAllStories(e) {
+  console.debug("navAllStories", e);
   hidePageComponents();
   putStoriesOnPage();
 }

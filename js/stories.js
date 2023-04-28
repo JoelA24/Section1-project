@@ -94,7 +94,7 @@ async function deleteStory(e) {
   await putUserStoriesOnPage();
 }
 
-$ownStories.on('click', '.trash-can', deleteStory)
+$ownStories.on("click", ".trash-can", deleteStory);
 
 // new story form submission
 
