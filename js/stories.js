@@ -91,7 +91,7 @@ async function deleteStory(e) {
   await storyList.removeStory(currentUser, storyId);
 
   // Story list regeneration
-  await putUserStoriesOnPage();
+  putUserStoriesOnPage();
 }
 
 $myStories.on("click", ".trash-can", deleteStory);
@@ -99,7 +99,7 @@ $myStories.on("click", ".trash-can", deleteStory);
 // new story form submission
 
 async function submitNewStory(e) {
-  console.debug('submitNewStory');
+  console.debug("submitNewStory");
   e.preventDefault();
 
   // gather form info
@@ -128,11 +128,11 @@ function putUserStoriesOnPage() {
 
   $myStories.empty();
 
-  if (currentUser.my$myStories.length === 0) {
+  if (currentUser.myStories.length === 0) {
     $myStories.append("<h5>No stories added by user yet!</h5>");
   } else {
     // loop through all of users stories and generate HTML for them
-    for (let story of currentUser.my$myStories) {
+    for (let story of currentUser.myStories) {
       let $story = generateStoryMarkup(story, true);
       $myStories.append($story);
     }
