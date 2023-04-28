@@ -25,7 +25,7 @@ function navSubmitStoryClick(e) {
 
 $navSubmitStory.on("click", navSubmitStoryClick);
 
-//  SHow favorites on click "favorite"
+//  Show favorites on click "favorite"
 
 function navFavoritesClick(e) {
   console.debug("navFavoritesClick", e);
