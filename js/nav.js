@@ -6,8 +6,8 @@
 
 /** Show main list of all stories when click site name */
 
-function navAllStories(e) {
-  console.debug("navAllStories", e);
+function navAllStories(evt) {
+  console.debug("navAllStories", evt);
   hidePageComponents();
   putStoriesOnPage();
 }
@@ -16,8 +16,8 @@ $body.on("click", "#nav-all", navAllStories);
 
 // Show Submit form on click "submit"
 
-function navSubmitStoryClick(e) {
-  console.debug("navSubmitStoryClick", e);
+function navSubmitStoryClick(evt) {
+  console.debug("navSubmitStoryClick", evt);
   hidePageComponents();
   $allStoriesList.show();
   $submitForm.show();
@@ -27,8 +27,8 @@ $navSubmitStory.on("click", navSubmitStoryClick);
 
 //  Show favorites on click "favorite"
 
-function navFavoritesClick(e) {
-  console.debug("navFavoritesClick", e);
+function navFavoritesClick(evt) {
+  console.debug("navFavoritesClick", evt);
   hidePageComponents();
   putFavoritesListOnPage();
 }
