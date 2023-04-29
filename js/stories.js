@@ -46,7 +46,7 @@ function generateStoryMarkup(story, showDeleteBtn = false) {
 
 // Implement delete btn for story (HTML)
 
-function getDeleteBtn() {
+function getDeleteBtnHTML() {
   return `
   <span class="trash-can">
     <i class="fas fa-trash-alt"></i>
